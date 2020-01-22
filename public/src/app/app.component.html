@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Rate My Cakes</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+  <div class="bigborder">
+  <h1 class="header">Rate my Cakes</h1>
+  <div class = "cakeinfo">
+    <h1>Cake List</h1>
+    <div *ngFor="let cake of cakes">
+      <h2>Baked By {{ cake.baked_by }}</h2>
+      <a (click)="viewCake(cake)"><img style="width: 150px; height: 150px" src = "{{cake.image}}"></a>
+        <form (submit)="saveRating(cake)">
+          <label>Rating:</label>
+          <select id="rating" type="number" name="rating" [(ngModel)]="cake.newRating.rating">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+          <br>
+          <input id="comment" type="text" name="comment" placeholder="Type your comment here" [(ngModel)]="cake.newRating.comment">
+          <br>
+          <input class="create"type="submit" value="Rate!">
+        </form>
+      <button id="delete"(click)="deleteCake(cake._id)">Delete</button>
+    </div>
+  </div>
+<div class="buttontime">
+<form (submit)="createCake()">
+  <h5>Submit a cake to be rated:</h5>
+  <label>Baker Name:</label>
+  <input type="text" name="baked_by" id="baked_by" [(ngModel)]="newCake.baked_by">
+  <label>Image URL:</label>
+  <input placeholder="image" type="text" name="image" id="image" [(ngModel)]="newCake.image">
+  <input type="submit" value="Save">
+</form>
+</div>
+<div class="buttontime2">
+  <div *ngIf="viewCake._id" (submit)="getCakeById(cake)">
+    <h3>Cake Info</h3>
+    <h3>Baked by {{viewCake.baked_by}}</h3>
+    <img style="width: 150px; height: 150px" src = "{{viewCake.image}}">
+    <p>{{viewCake.ratings.rating}}</p>
+    <p>{{viewCake.ratings.comment}}</p>
+  </div>
+</div>
+</div>
+</body>
+</html>
